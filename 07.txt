@@ -1,0 +1,10 @@
+sqlite> select parties.name, count(distinct cases.violation_county) 
+	from parties join cases on parties.case_id=cases.case_id 
+	where parties.type like "Defendant" and parties.name IS NOT "" 
+	GROUP BY parties.name ORDER BY count(distinct cases.violation_county) DESC limit 3;
+
+
+
+BUTLER, ROBERT LEE|5
+ROBINSON, TIARA MONET|5
+AGAMBAR, WILLIAM DOUGLAS|4

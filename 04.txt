@@ -1,0 +1,11 @@
+sqlite> select case_id,filing_date  
+	from cases 
+	where filing_date BETWEEN "1950/01/01" AND "1960/01/01" 
+	ORDER BY filing_date ASC limit 3 ;
+
+
+
+24D51297643|1951-10-24
+24C11007199|1951-11-21
+24P12001634|1952-06-25
+

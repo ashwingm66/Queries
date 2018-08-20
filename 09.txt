@@ -1,0 +1,1 @@
+select race,disposition,((SELECT COUNT(cases.case_id) FROM cases,parties WHERE (disposition='Guilty'or disposition='Not Guilty') and race in('African American','Caucasian') and cases.case_id=parties.case_id)/((select count(cases.case_id) from cases where race in ('African American', 'Caucasian'))/100.0))from cases,parties where cases.case_id=parties.case_id and race!='' limit 5;

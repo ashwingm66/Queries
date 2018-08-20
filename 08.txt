@@ -1,0 +1,63 @@
+select race,disposition,((SELECT COUNT(cases.case_id) FROM cases,parties WHERE (disposition='Guilty'or disposition='Not Guilty') and race in('African American','Caucasian') and cases.case_id=parties.case_id)/((select count(cases.case_id) from cases where race in ('African American', 'Caucasian'))/100.0))from cases,parties where cases.case_id=parties.case_id and race!='' limit 50;
+
+
+
+select race,disposition
+	from parties,cases 
+where cases.disposition like "Guilty" and cases.disposition like "Non Guilty" or	parties.race like "African American" or parties.race like "Caucasian" and parties.case_id=cases.case_id group by  limit 3;
+
+WITH 
+Age_Race_CTE (case_id) as (
+  select 
+     
+    (
+      strftime(
+        '%Y', 
+        date('now')
+      )- strftime('%Y', dob)
+    ) as age 
+  from 
+    parties 
+  where 
+    age > 0 
+    and (
+      dob != 'NULL' 
+      and name != 'NULL'
+    )
+),
+Race_Dis_CTE(race,disposition) as(
+  select 
+    
+      race, 
+      disposition 
+      from 
+        parties, 
+        cases 
+      where 
+        (parties.case_id = cases.case_id) 
+        and (
+          cases.disposition like "Guilty" 
+          or cases.disposition like "Non Guilty"
+        ) 
+        and (
+          parties.race like "African American" 
+          or parties.race like "Caucasian"
+        )
+    ) 
+  select
+  UNION ALL
+    Race_Dis_CTE.race, 
+    Race_Dis_CTE.disposition, 
+    avg(Age_Race_CTE.age) 
+  from 
+    Age_Race_CTE, 
+    Race_Dis_CTE 
+  where 
+    Age_Race_CTE.case_id = Race_Dis_CTE.case_id 
+  group by 
+    Race_Dis_CTE.race 
+  ORDER BY 
+    Age_Race_CTE DESC 
+  limit 
+    5;
+

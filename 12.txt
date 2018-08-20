@@ -1,0 +1,2 @@
+select name,count(case_id),(SELECT COUNT(attorneys.case_id) FROM cases,attorneys  WHERE disposition='Not Guilty' and cases.case_id=attorneys.case_id)/((select count(case_id) from attorneys)/100.0)
+as success from attorneys group by name having count(case_id)>100 and name!='' order by success desc limit 5 offset 6;

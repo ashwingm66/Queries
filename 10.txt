@@ -1,0 +1,12 @@
+select zip,count(case_id) 
+	from parties 
+	where address like '%Maryland%' 
+	GROUP BY zip having zip IS NOT ""
+	ORDER BY count(case_id) desc limit 3; 
+
+
+
+21411|14921
+21218|1314
+20850|1081
+

@@ -1,0 +1,7 @@
+sqlite> select count(case_id)/(select count(case_id)/100.00 from cases ) 
+	from cases 
+	where status  like "Case Closed Statistically" AND status IS NOT "" ;
+
+
+
+1.83013383128541

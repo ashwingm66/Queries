@@ -1,0 +1,2 @@
+select count(*) from charges where description LIKE "%PHONE%";
+9273

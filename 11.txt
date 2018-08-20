@@ -1,0 +1,9 @@
+select name,count(case_id),(SELECT COUNT(attorneys.case_id) 
+FROM cases,attorneys 
+WHERE disposition='Not Guilty' and cases.case_id=attorneys.case_id)/((select count(*) from attorneys where name is not null)/100.0)
+as success from attorneys 
+group by name 
+having count(case_id)>100 and name is not null 
+order by success desc limit 5;
+
+

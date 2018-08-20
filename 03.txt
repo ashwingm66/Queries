@@ -1,0 +1,12 @@
+select violation_county,count(charges.case_id) 
+	from charges,cases 
+	where description like "%RECKLESS%" AND charges.case_id = cases.case_id AND violation_county IS NOT "" 
+	GROUP BY violation_county 
+	ORDER BY count(charges.case_id) DESC, violation_county limit 3;
+
+
+
+Anne Arundel County|762
+PRINCE GEORGE'S COUNTY (HYATTSVILLE)|366
+PRINCE GEORGE'S COUNTY (UPPER MARLBORO)|311
+

@@ -1,0 +1,2 @@
+select count(DISTINCT case_id) from attorneys;
+632104

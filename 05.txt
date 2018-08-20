@@ -1,0 +1,11 @@
+select count(case_id),(substr(strftime('%Y',filing_date),1,3)||'0s')as decade
+	from cases
+	GROUP BY decade HAVING filing_date IS NOT "" 
+	ORDER BY count(case_id) DESC limit 3;
+
+
+622830|2000s
+418377|2010s
+132192|1990s
+ 
+
